@@ -22,7 +22,7 @@ def get_book_by_id(db: Session, id: int):
 def get_book_by_title(db: Session, title: str):
     return db.query(models.Book).filter(models.Book.title == title).first()
 
-def get_book_by_ganre(db: Session, genre: str):
+def get_book_by_genre(db: Session, genre: str):
     return db.query(models.Book).filter(models.Book.genre == genre).all()
 
 def get_books_above_price(db: Session, price: float):

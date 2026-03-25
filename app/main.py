@@ -13,58 +13,58 @@ def get_db():
     try:
        yield db
     finally:
-        db.close
+        db.close()
         
-@mini_market.post("/add_book/", response_model=schemas.BookCreate)
+@mini_market.post("/book", response_model=schemas.BookCreate)
 def add_book(create_book: schemas.BookCreate, db: Session = Depends(get_db)):
     get_book = crud.get_book_by_title(db=db, title=create_book.title)
     if get_book:
         raise HTTPException(status_code=400, detail="Book already exists")
     return crud.add_book(db=db, book=create_book)
 
-@mini_market.get("/get_book/id/{book_id}", response_model=schemas.Book)
+@mini_market.get("/book/id/{book_id}", response_model=schemas.Book)
 def get_book_by_id(book_id: int, db: Session = Depends(get_db)):
     db_book = crud.get_book_by_id(db=db, id=book_id)
     if db_book is None:
         raise HTTPException(status_code=404, detail="Book not found")
     return db_book
     
-@mini_market.get("/get_book/title/{book_title}", response_model=schemas.Book)
-def get_boot_by_title(book_title: str, db: Session = Depends(get_db)):
+@mini_market.get("/book/title/{book_title}", response_model=schemas.Book)
+def get_book_by_title(book_title: str, db: Session = Depends(get_db)):
     db_book = crud.get_book_by_title(db=db, title=book_title)
     if db_book is None:
         raise HTTPException(status_code=404, detail="Book not found")
     return db_book
 
-@mini_market.get("/get_books/books_ganre/{books_ganre}", response_model=list[schemas.Book])
+@mini_market.get("/books/books_genre/{books_genre}", response_model=list[schemas.Book])
 def get_books_by_genre(books_genre: str, db: Session = Depends(get_db)):
     db_book = crud.get_book_by_ganre(db=db, genre=books_genre)
     if db_book is None:
         raise HTTPException(status_code=404, detail="Books not found")
     return db_book
 
-@mini_market.get("/get_books/above_price/{books_price}", response_model=list[schemas.Book])
+@mini_market.get("/books/above_price/{books_price}", response_model=list[schemas.Book])
 def get_books_above_price(book_price: float, db: Session = Depends(get_db)):
     db_book = crud.get_books_above_price(db=db, price=book_price)
     if db_book is None:
         raise HTTPException(status_code=404, detail="Books not found")
     return db_book
 
-@mini_market.get("/get_books/cheaper_price/{books_price}", response_model=list[schemas.Book])
+@mini_market.get("/books/cheaper_price/{books_price}", response_model=list[schemas.Book])
 def get_books_cheaper_price(book_price: float, db: Session = Depends(get_db)):
     db_book = crud.get_books_cheaper_price(db=db, price=book_price)
     if db_book is None:
         raise HTTPException(status_code=404, detail="Books not found")
     return db_book
 
-@mini_market.get("/get_books/by_price/{price}", response_model=list[schemas.Book])
+@mini_market.get("/books/by_price/{price}", response_model=list[schemas.Book])
 def get_book_by_price(order_price: str = Query("asc", enum=["asc", "desc"]), db: Session = Depends(get_db),):
     db_book = crud.get_books_by_price(order=order_price, db=db)
     if db_book is None:
         raise HTTPException(status_code=404, detail="Books not found")
     return db_book
 
-@mini_market.patch("/update_book_instock/{book_title}", response_model=schemas.BookUpdate)
+@mini_market.patch("/book_in_stock/{book_title}", response_model=schemas.BookUpdate)
 def update_book_instock(in_stock: bool, book_title: str, db: Session = Depends(get_db)):
     db_book = crud.get_book_by_title(db=db, title=book_title)
     if db_book is None:
