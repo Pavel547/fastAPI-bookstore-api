@@ -1,6 +1,46 @@
-# Mini bookstore
+# Bookstore API (FastAPI)
 
-This is not real project i create it just for practice in FastAPI and SQLAlchemy
-This is a mini-bookstore that will provide information about the books that are in stock.
+REST API for managing books built with FastAPI.
 
-This code is designed to create a database in which data about books will be stored and the operation of adding books and retrieving books according to certain specifications will be implemented.
+---
+
+## 🚀 Features
+- CRUD operations for books
+- RESTful endpoints
+- Data validation
+- JSON responses
+
+---
+
+## 🛠 Tech Stack
+- Python
+- FastAPI
+
+---
+
+## 📡 Endpoints
+
+### Get book
+GET /book
+
+### Get book by ID
+GET /books/{id}
+
+### Create book
+POST /add_book
+
+### Update book_instock
+PATCH /book_in_stock/{book_title}
+
+### Update book_numerosity
+PATCH /book_numerosity/{book_title}
+
+### Delete book
+DELETE /delete_book/{id}
+
+---
+
+## ▶️ Run locally
+
+```bash
+uvicorn main:app --reload
