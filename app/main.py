@@ -71,7 +71,7 @@ def update_book_instock(in_stock: bool, book_title: str, db: Session = Depends(g
         raise HTTPException(status_code=404, detail="Book not found")
     return crud.update_book_instock(db=db, title=book_title, update_book=in_stock)
 
-@mini_market.patch("/update_book_numerosity/{book_title}", response_model=schemas.BookUpdate)
+@mini_market.patch("/book_numerosity/{book_title}", response_model=schemas.BookUpdate)
 def update_book_numerosity(numerosity: int, book_title: str, db: Session = Depends(get_db)):
     db_book = crud.get_book_by_title(db=db, title=book_title)
     if db_book is None:
