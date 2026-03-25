@@ -64,7 +64,7 @@ def get_book_by_price(order_price: str = Query("asc", enum=["asc", "desc"]), db:
         raise HTTPException(status_code=404, detail="Books not found")
     return db_book
 
-@mini_market.patch("/book_in_stock/{book_title}", response_model=schemas.BookUpdate)
+@mini_market.patch("/book_instock/{book_title}", response_model=schemas.BookUpdate)
 def update_book_instock(in_stock: bool, book_title: str, db: Session = Depends(get_db)):
     db_book = crud.get_book_by_title(db=db, title=book_title)
     if db_book is None:
